@@ -1,20 +1,20 @@
 <template>
   <div id="app">
     <multiselect
-        v-model="value"
+        :value="value"
         :options="countries"
         :multiple="true"
         :close-on-select="false"
         :clear-on-select="false"
         :hide-selected="true"
         track-by="name"
-        label="name"></multiselect>
-
+        label="name"
+        @input="addCountry"></multiselect>
   </div>
 </template>
 
 <script type="text/javascript">
-import { mapState } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'app',
@@ -26,13 +26,21 @@ export default {
 
     };
   },
-  computed: mapState({
-    value: 'value',
-    options: 'options',
-    countries: 'countries',
-  }),
+  computed: {
+    ...mapGetters([
+      'countries',
+      'value',
+      'options',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'loadCountriesList',
+      'addCountry',
+    ]),
+  },
   created() {
-    this.$store.dispatch('loadCountriesList');
+    this.loadCountriesList();
   },
 };
 </script>
