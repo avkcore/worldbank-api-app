@@ -1,9 +1,7 @@
-export function fetchJSON(url) {
-  return fetch(url)
+export const fetchJSON = url =>
+  fetch(url)
     .then(res => res.json());
-}
 
-export function flatMap(array, lambda) {
-  return [].concat(...lambda);
-}
-
+export const generateNumbers = (start, end) =>
+  Array.from(Array((end - start) + 1).keys())
+    .map(xs => xs + start);

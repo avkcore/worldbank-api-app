@@ -1,48 +1,22 @@
 <template>
   <div id="app">
-    <multiselect
-        :value="value"
-        :options="countries"
-        :multiple="true"
-        :close-on-select="false"
-        :clear-on-select="false"
-        :hide-selected="true"
-        track-by="name"
-        label="name"
-        @input="addCountry"></multiselect>
+    <search></search>
   </div>
 </template>
 
 <script type="text/javascript">
-import { mapActions, mapGetters } from 'vuex';
+import Search from './components/Search';
 
 export default {
   name: 'app',
   components: {
-
+    Search,
   },
   data() {
     return {
 
     };
   },
-  computed: {
-    ...mapGetters([
-      'countries',
-      'value',
-      'options',
-    ]),
-  },
-  methods: {
-    ...mapActions([
-      'loadCountriesList',
-      'addCountry',
-    ]),
-  },
-  created() {
-    this.loadCountriesList();
-  },
 };
 </script>
-
 <style></style>

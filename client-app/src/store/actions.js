@@ -9,4 +9,19 @@ export const loadCountriesList = async ({ commit }) => {
 };
 
 export const addCountry = ({ commit }, country) =>
-  commit(types.UPDATE_SELECTED_COUNTRIES, country);
+  commit(types.ADD_SELECTED_COUNTRY, country);
+
+export const removeCountry = ({ commit }, country) =>
+  commit(types.DELETE_SELECTED_COUNTRY, country);
+
+export const initRanges = ({ commit }) => {
+  commit(types.INIT_FROM_RANGE);
+  commit(types.INIT_TO_RANGE);
+};
+
+export const changeYearFrom = ({ commit }, value) =>
+  commit(types.CHANGE_YEAR_FROM, value);
+
+export const changeYearTo = ({ commit }, value) =>
+  commit(types.CHANGE_YEAR_TO, value);
+

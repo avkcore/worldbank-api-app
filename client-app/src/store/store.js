@@ -9,9 +9,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    value: [],
-    options: [],
-    countries: [],
+    selectedCountries: [],
+    countriesList: [],
+    yearFrom: null,
+    yearTo: null,
+    fromYearsList: [],
+    toYearsList: [],
   },
   getters,
   actions,
