@@ -11,9 +11,10 @@ export default {
         name: country.name,
         code: country.alpha2Code,
       }));
-    mappedCountries.forEach(country =>
-      state.countriesList.push(country),
-    );
+    state.countriesList.push(...mappedCountries);
+  },
+  [types.UPDATE_TOPICS_LIST](state, { topics }) {
+    state.topicsList.push(...topics[1]);
   },
   [types.ADD_SELECTED_COUNTRY](state, country) {
     state.selectedCountries.push(country);
@@ -37,5 +38,14 @@ export default {
   },
   [types.CHANGE_YEAR_TO](state, value) {
     state.yearTo = value;
+  },
+  [types.CHANGE_TOPIC](state, topic) {
+    state.selectedTopic = { id: topic.id, value: topic.value };
+  },
+  [types.UPDATE_INDICATORS_LIST](state, indicators) {
+    state.indicators.push(...indicators[1]);
+  },
+  [types.CHANGE_INDICATOR](state, indicator) {
+    state.selectedIndicator = { id: indicator.id, name: indicator.name };
   },
 };

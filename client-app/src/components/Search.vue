@@ -15,6 +15,7 @@
         @remove="removeCountry"></multiselect>
     <label for="range-from">Year From:</label>
     <multiselect
+        id="range-from"
         :value="yearFrom"
         :options="filteredYearsFrom"
         :searchable="false"
@@ -22,8 +23,9 @@
         :show-labels="false"
         placeholder="Pick a value"
         @select="changeYearFrom"></multiselect>
-    <label for="range-from">Year To:</label>
+    <label for="range-to">Year To:</label>
     <multiselect
+        id="range-to"
         :value="yearTo"
         :options="filteredYearsTo"
         :searchable="false"
@@ -31,6 +33,32 @@
         :show-labels="false"
         placeholder="Pick a value"
         @select="changeYearTo"></multiselect>
+    <label for="topics">Choose topic:</label>
+    <multiselect
+        id="topics"
+        :value="selectedTopic"
+        :options="topicsList"
+        :searchable="false"
+        :close-on-select="true"
+        :show-labels="false"
+        placeholder="Pick a value"
+        label="value"
+        track-by="id"
+        @select="changeTopic"></multiselect>
+    <div v-if="selectedTopic">
+      <label for="indicators">Choose indicator:</label>
+      <multiselect
+         id="indicators"
+         :value="selectedIndicator"
+         :options="indicators"
+         :searchable="false"
+         :close-on-select="true"
+         :show-labels="false"
+         placeholder="Pick a value"
+         label="name"
+         track-by="id"
+         @select="changeIndicator"></multiselect>
+    </div>
   </div>
 </template>
 
@@ -42,25 +70,33 @@ export default {
     ...mapGetters([
       'countriesList',
       'selectedCountries',
+      'topicsList',
+      'selectedTopic',
       'yearFrom',
       'yearTo',
       'filteredYearsTo',
       'filteredYearsFrom',
+      'indicators',
+      'selectedIndicator',
     ]),
   },
   methods: {
     ...mapActions([
       'loadCountriesList',
+      'loadTopicsList',
       'addCountry',
       'removeCountry',
       'initRanges',
       'changeYearFrom',
       'changeYearTo',
+      'changeTopic',
+      'changeIndicator',
     ]),
   },
   created() {
     this.loadCountriesList();
     this.initRanges();
+    this.loadTopicsList();
   },
 };
 </script>

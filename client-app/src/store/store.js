@@ -11,6 +11,10 @@ export default new Vuex.Store({
   state: {
     selectedCountries: [],
     countriesList: [],
+    topicsList: [],
+    selectedTopic: null,
+    indicators: [],
+    selectedIndicator: null,
     yearFrom: null,
     yearTo: null,
     fromYearsList: [],
