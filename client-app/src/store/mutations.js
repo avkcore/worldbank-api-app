@@ -40,12 +40,35 @@ export default {
     state.yearTo = value;
   },
   [types.CHANGE_TOPIC](state, topic) {
+    state.selectedIndicator = null;
     state.selectedTopic = { id: topic.id, value: topic.value };
   },
   [types.UPDATE_INDICATORS_LIST](state, indicators) {
+    state.indicators.splice(0, state.indicators.length);
     state.indicators.push(...indicators[1]);
   },
   [types.CHANGE_INDICATOR](state, indicator) {
     state.selectedIndicator = { id: indicator.id, name: indicator.name };
+  },
+  [types.OPEN_SAVE_PATTERN_AREA](state) {
+    state.patternSaveAttempt = true;
+  },
+  [types.CLOSE_SAVE_PATTERN_AREA](state) {
+    state.patternSaveAttempt = false;
+  },
+  [types.SAVE_SEARCH_PATTERN](state, pattern) {
+    // const existingPattern = state.searchPatterns
+    //   .find(p => p.name === pattern.name);
+    // state.searchPatterns.splice(state.searchPatterns.indexOf(existingPattern), 1);
+    state.searchPatterns.push(pattern);
+  },
+  [types.CHANGE_PATTERN](state, pattern) {
+    state.selectedPattern = pattern;
+  },
+  [types.OPEN_SAVE_CONFIRMATION](state) {
+    state.isConfirmDialogOpen = true;
+  },
+  [types.CLOSE_SAVE_CONFIRMATION](state) {
+    state.isConfirmDialogOpen = false;
   },
 };

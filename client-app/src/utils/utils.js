@@ -8,3 +8,6 @@ export const generateNumbers = (start, end) =>
 
 export const injectValueIntoIndicatorQuery = value => // TODO: get rid of this
   `http://localhost:3000/topics/${value}/indicators?format=json`;
+
+export const objectsCompare = (a, b) =>
+  JSON.stringify(a) === JSON.stringify(b);

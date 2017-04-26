@@ -2,10 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Multiselect from 'vue-multiselect';
+import Buefy from 'buefy';
+import 'buefy/lib/buefy.css';
 
 import store from './store/store';
 
 import App from './App';
+
+Vue.use(Buefy);
 
 Vue.component('multiselect', Multiselect);
 
