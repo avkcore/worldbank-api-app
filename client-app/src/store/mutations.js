@@ -1,5 +1,5 @@
 import * as types from './mutation-types';
-import { generateNumbers } from '../utils/utils';
+import { generateNumbers, isMatched } from '../utils/utils';
 
 const MIN_YEAR = 1960;
 const MAX_YEAR = 2016;
@@ -57,9 +57,10 @@ export default {
     state.patternSaveAttempt = false;
   },
   [types.SAVE_SEARCH_PATTERN](state, pattern) {
-    // const existingPattern = state.searchPatterns
-    //   .find(p => p.name === pattern.name);
-    // state.searchPatterns.splice(state.searchPatterns.indexOf(existingPattern), 1);
+    if (isMatched(state.searchPatterns, 'name', pattern.name)) {
+      const matched = state.searchPatterns.find(p => p.name === pattern.name);
+      state.searchPatterns.splice(state.selectedCountries.indexOf(matched), 1);
+    }
     state.searchPatterns.push(pattern);
   },
   [types.CHANGE_PATTERN](state, pattern) {

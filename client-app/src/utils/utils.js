@@ -11,3 +11,8 @@ export const injectValueIntoIndicatorQuery = value => // TODO: get rid of this
 
 export const objectsCompare = (a, b) =>
   JSON.stringify(a) === JSON.stringify(b);
+
+export const isMatched = (set, matchBy, value) => {
+  const anyMatch = set.filter(item => item[matchBy] === value);
+  return anyMatch.length > 0;
+};

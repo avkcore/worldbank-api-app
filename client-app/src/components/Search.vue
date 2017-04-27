@@ -4,7 +4,7 @@
     <div class="container">
       <div class="columns">
         <div class="column">
-          <label for="countries">Select countries</label>
+          <label for="countries">Select countries:</label>
           <multiselect id="countries" :value="selectedCountries" :options="countriesList" :multiple="true" :close-on-select="false"
             :clear-on-select="true" :hide-selected="true" track-by="name" label="name" @select="addCountry" @remove="removeCountry">
           </multiselect>
@@ -36,7 +36,7 @@
       </div>
       <div class="columns">
         <div class="column">
-          <label for="pattern">Use Pattern</label>
+          <label for="pattern">Use Pattern:</label>
           <multiselect id="pattern" :disabled="!isPatternExist" :value="selectedPattern" :options="searchPatterns" :searchable="false"
             :close-on-select="true" :show-labels="false" placeholder="Pick a value" label="name" track-by="name" @select="changePattern">
           </multiselect>
@@ -53,7 +53,7 @@
                 <button class="button" @click="closePatternSaveArea">Cancel</button>
               </p>
               <p class="control">
-                <button class="button is-success" :disabled="!patternHasName" @click="savePattern({ patternName, coupledData })">Save</button>
+                <button class="button is-success" :disabled="!patternHasName" @click="savePattern({ ctx, patternName, coupledData })">Save</button>
               </p>
             </b-field>
           </div>
@@ -71,6 +71,7 @@ export default {
   data() {
     return {
       patternName: '',
+      ctx: this,
     };
   },
   computed: {
@@ -117,31 +118,6 @@ export default {
       'changePattern',
       'closeSaveConfirm',
     ]),
-    savePatternConfirm() {
-      const patternName = this.patternName;
-      const coupledData = this.coupledData;
-      this.$dialog.confirm({
-        message: 'Overwrite existing pattern?',
-        onConfirm: () => {
-          this.savePattern({ patternName, coupledData });
-          this.$toast.open({
-            message: `Pattern '${this.patternName}' has been saved`,
-          });
-          this.patternName = '';
-          this.closeSaveConfirm();
-        },
-        onCancel: () => {
-          this.closeSaveConfirm();
-        },
-      });
-    },
-  },
-  watch: {
-    isConfirmDialogOpen(val) {
-      if (val) {
-        this.savePatternConfirm();
-      }
-    },
   },
   created() {
     this.loadCountriesList();

@@ -2,7 +2,9 @@ import * as types from './mutation-types';
 import {
   fetchJSON,
   injectValueIntoIndicatorQuery,
+  isMatched,
 } from '../utils/utils';
+import { savePatternDialog } from '../utils/dialog';
 
 const COUNTRIES_URL = 'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;flag';
 const TOPICS_URL = 'http://localhost:3000/topics/?format=json';
@@ -66,23 +68,28 @@ export const openPatternSaveArea = ({ commit }) =>
 export const closePatternSaveArea = ({ commit }) =>
   commit(types.CLOSE_SAVE_PATTERN_AREA);
 
-export const openSaveConfirm = ({ commit }) =>
+export const openSaveConfirm = ({ commit }, { ctx, patternName }) => {
   commit(types.OPEN_SAVE_CONFIRMATION);
+  return savePatternDialog(ctx, patternName);
+};
 
 export const closeSaveConfirm = ({ commit }) =>
   commit(types.CLOSE_SAVE_CONFIRMATION);
 
-export const savePattern = ({ dispatch, commit, state }, params) => {
-  const pattern = { ...params.coupledData, name: params.patternName };
-  // const duplicates = state.searchPatterns.find(p => p.name === pattern.name);
-  // if (typeof duplicates !== 'undefined' && Object.keys(duplicates).length > 0) {
-  //   dispatch('openSaveConfirm');
-  // } else {
-  //   commit(types.SAVE_SEARCH_PATTERN, pattern);
-  //   dispatch('closePatternSaveArea');
-  // }
-  commit(types.SAVE_SEARCH_PATTERN, pattern);
-  dispatch('closePatternSaveArea');
+export const savePattern = ({ dispatch, commit, state }, { ctx, patternName, coupledData }) => {
+  const pattern = { ...coupledData, name: patternName };
+  if (isMatched(state.searchPatterns, 'name', patternName)) {
+    dispatch('openSaveConfirm', { ctx, patternName })
+    .then(() => {
+      commit(types.SAVE_SEARCH_PATTERN, pattern);
+      dispatch('closePatternSaveArea');
+    })
+    .catch(() => dispatch('closeSaveConfirm'));
+  } else {
+    commit(types.SAVE_SEARCH_PATTERN, pattern);
+    dispatch('closePatternSaveArea');
+  }
+  ctx.$data.patternName = ''; // TODO: get rid of this
 };
 
 export const changePattern = ({ commit }, pattern) =>
