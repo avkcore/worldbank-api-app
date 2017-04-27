@@ -5,7 +5,7 @@ export const savePatternDialog = (ctx, patternName) => {
       message: 'Overwrite existing pattern?',
       onConfirm: () => {
         ctx.$toast.open({
-          message: `Pattern "${patternName}" has neen overwritten`,
+          message: `Pattern "${patternName}" has been overwritten`,
         });
         ctx.$data.patternName = ''; // TODO: get rid of this
         resolve('Confirmed');
