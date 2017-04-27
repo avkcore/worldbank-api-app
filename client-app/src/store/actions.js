@@ -3,6 +3,8 @@ import {
   fetchJSON,
   injectValueIntoIndicatorQuery,
   isMatched,
+  joinDates,
+  getCountryCodes,
 } from '../utils/utils';
 import { savePatternDialog } from '../utils/dialog';
 
@@ -29,6 +31,15 @@ export const changeTopic = async ({ commit, dispatch }, topic) => {
   await dispatch('loadIndicatorsList', topic.id);
 };
 
+export const requestData = async ({ commit, state }, data) => {
+  const codes = getCountryCodes(data.countries);
+  const date = joinDates(data);
+  const indicators = data.indicators.id;
+  const url = `http://localhost:3000/countries/${codes}/indicators/${indicators}?date=${date}&format=json`;
+  const response = await fetchJSON(url);
+  console.log(url, response);
+};
+
 export const addCountry = ({ commit }, country) =>
   commit(types.ADD_SELECTED_COUNTRY, country);
 
@@ -48,18 +59,6 @@ export const changeYearTo = ({ commit }, value) =>
 
 export const changeIndicator = ({ commit }, indicator) => {
   commit(types.CHANGE_INDICATOR, indicator);
-};
-
-export const requestData = async ({ commit }, data) => {
-  const codes = data.codes.join(';');
-  const range = [];
-  if (data.yearFrom) range.push(data.yearFrom);
-  if (data.yearTo) range.push(data.yearTo);
-  const date = range.join(':');
-  const indicators = data.indicators;
-  const url = `http://localhost:3000/countries/${codes}/indicators/${indicators}?date=${date}&format=json`;
-  const response = await fetchJSON(url);
-  console.log(url, response);
 };
 
 export const openPatternSaveArea = ({ commit }) =>
@@ -92,5 +91,7 @@ export const savePattern = ({ dispatch, commit, state }, { ctx, patternName, cou
   ctx.$data.patternName = ''; // TODO: get rid of this
 };
 
-export const changePattern = ({ commit }, pattern) =>
+export const changePattern = ({ commit }, pattern) => {
   commit(types.CHANGE_PATTERN, pattern);
+};
+

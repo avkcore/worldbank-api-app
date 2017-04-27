@@ -65,6 +65,11 @@ export default {
   },
   [types.CHANGE_PATTERN](state, pattern) {
     state.selectedPattern = pattern;
+    state.selectedCountries = pattern.countries;
+    state.selectedIndicator = pattern.indicators;
+    state.yearFrom = pattern.yearFrom;
+    state.yearTo = pattern.yearTo;
+    state.selectedTopic = pattern.topic;
   },
   [types.OPEN_SAVE_CONFIRMATION](state) {
     state.isConfirmDialogOpen = true;

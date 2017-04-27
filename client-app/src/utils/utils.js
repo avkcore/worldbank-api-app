@@ -16,3 +16,16 @@ export const isMatched = (set, matchBy, value) => {
   const anyMatch = set.filter(item => item[matchBy] === value);
   return anyMatch.length > 0;
 };
+
+export const joinDates = (values) => {
+  const range = [];
+  if (values.yearFrom) range.push(values.yearFrom);
+  if (values.yearTo) range.push(values.yearTo);
+  return range.join(':');
+};
+
+export const getCountryCodes = (countries) => {
+  const codes = countries.map(country => country.code);
+  return codes.join(';');
+};
+

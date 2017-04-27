@@ -31,15 +31,16 @@ export const filteredYearsFrom = (state) => {
   return state.fromYearsList;
 };
 export const coupledData = state => ({
-  codes: state.selectedCountries.map(country => country.code),
+  countries: state.selectedCountries,
   yearFrom: state.yearFrom,
   yearTo: state.yearTo,
-  indicators: state.selectedIndicator ? state.selectedIndicator.id : null,
+  indicators: state.selectedIndicator ? state.selectedIndicator : null,
+  topic: state.selectedTopic,
 });
 
 export const isDataCoupled = (state, getters) =>
   Boolean(
-    getters.coupledData.codes.length &&
+    getters.coupledData.countries.length &&
     getters.coupledData.indicators &&
     (getters.coupledData.yearFrom || getters.coupledData.yearTo),
 );
