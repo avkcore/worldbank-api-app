@@ -40,8 +40,9 @@ export const coupledData = state => ({
 
 export const isDataCoupled = (state, getters) =>
   Boolean(
-    getters.coupledData.countries.length &&
-    getters.coupledData.indicators &&
+    getters.coupledData.countries.length > 0 &&
+    !Object.is(null, getters.coupledData.indicators) &&
+    Object.keys(getters.coupledData.indicators).length > 0 &&
     (getters.coupledData.yearFrom || getters.coupledData.yearTo),
 );
 

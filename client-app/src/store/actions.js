@@ -5,15 +5,23 @@ import {
   isMatched,
   joinDates,
   getCountryCodes,
+  generateNumbers,
 } from '../utils/utils';
 import { savePatternDialog } from '../utils/dialog';
 
 const COUNTRIES_URL = 'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;flag';
 const TOPICS_URL = 'http://localhost:3000/topics/?format=json';
+const MIN_YEAR = 1960;
+const MAX_YEAR = 2016;
 
 export const loadCountriesList = async ({ commit }) => {
   const countries = await fetchJSON(COUNTRIES_URL);
-  commit(types.UPDATE_COUNTRIES_LIST, { countries });
+  const mappedCountries = countries
+      .map(country => ({
+        name: country.name,
+        code: country.alpha2Code,
+      }));
+  commit(types.UPDATE_COUNTRIES_LIST, { mappedCountries });
 };
 
 export const loadTopicsList = async ({ commit }) => {
@@ -43,12 +51,16 @@ export const requestData = async ({ commit, state }, data) => {
 export const addCountry = ({ commit }, country) =>
   commit(types.ADD_SELECTED_COUNTRY, country);
 
-export const removeCountry = ({ commit }, country) =>
+export const removeCountry = ({ commit, state }, value) => {
+  const country = state.selectedCountries
+      .find(c => c.name === value.name);
   commit(types.DELETE_SELECTED_COUNTRY, country);
+};
 
 export const initRanges = ({ commit }) => {
-  commit(types.INIT_FROM_RANGE);
-  commit(types.INIT_TO_RANGE);
+  const rangeArray = generateNumbers(MIN_YEAR, MAX_YEAR).reverse();
+  commit(types.INIT_FROM_RANGE, { rangeArray });
+  commit(types.INIT_TO_RANGE, { rangeArray });
 };
 
 export const changeYearFrom = ({ commit }, value) =>
@@ -88,7 +100,7 @@ export const savePattern = ({ dispatch, commit, state }, { ctx, patternName, cou
     commit(types.SAVE_SEARCH_PATTERN, pattern);
     dispatch('closePatternSaveArea');
   }
-  ctx.$data.patternName = ''; // TODO: get rid of this
+  ctx.$data.patternName = ''; // TODO: get rid of this somehow
 };
 
 export const changePattern = ({ commit }, pattern) => {

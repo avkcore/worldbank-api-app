@@ -45,8 +45,8 @@
       <div class="columns">
         <div class="column">
           <div class="block">
-            <a class="button is-success" :disabled="!isRequestAvailable" :class="{'is-loading': false}" @click="requestData(coupledData)" v-show="!patternSaveAttempt">Get Data</a>
-            <a class="button is-info" :disabled="!isDataCoupled" @click="openPatternSaveArea" v-show="!patternSaveAttempt">Save Pattern</a>
+            <a class="button is-success" :disabled="!isRequestAvailable" :class="{'is-loading': false}" @click="onRequestHandler" v-show="!patternSaveAttempt">Get Data</a>
+            <a class="button is-info" :disabled="!isDataCoupled" @click="onSavePatternHandler" v-show="!patternSaveAttempt">Save Pattern</a>
             <b-field v-show="patternSaveAttempt">
               <b-input placeholder="Pattern Name" v-model="patternName"></b-input>
               <p class="control">
@@ -97,7 +97,7 @@ export default {
       'isConfirmDialogOpen',
     ]),
     patternHasName() {
-      return !!this.patternName.length;
+      return this.patternName.length > 0;
     },
   },
   methods: {
@@ -118,6 +118,18 @@ export default {
       'changePattern',
       'closeSaveConfirm',
     ]),
+    onRequestHandler() {
+      if (!this.isRequestAvailable) {
+        return;
+      }
+      this.requestData(this.coupledData);
+    },
+    onSavePatternHandler() {
+      if (!this.isDataCoupled) {
+        return;
+      }
+      this.openPatternSaveArea();
+    },
   },
   created() {
     this.loadCountriesList();
