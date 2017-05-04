@@ -4,14 +4,29 @@ import { Bar } from 'vue-chartjs';
 export default Bar.extend({
   mounted() {
     this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      labels: ['2014', '2015', '2016'],
       datasets: [
         {
-          label: 'GitHub Commits',
-          backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11],
+          label: 'Algeria',
+          backgroundColor: 'blue',
+          data: [3, 7, 4],
+        },
+        {
+          label: 'Ukraine',
+          backgroundColor: 'red',
+          data: [4, null, 5],
+        },
+        {
+          label: 'USA',
+          backgroundColor: 'green',
+          data: [7, 2, 6],
         },
       ],
+    }, {
+      title: {
+        display: true,
+        text: 'Some indicator',
+      },
     });
   },
 });

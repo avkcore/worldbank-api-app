@@ -1,10 +1,9 @@
 import * as types from './mutation-types';
+import callDataAPI from '../api/service';
 import {
   fetchJSON,
   injectValueIntoIndicatorQuery,
   isMatched,
-  joinDates,
-  getCountryCodes,
   generateNumbers,
 } from '../utils/utils';
 import { savePatternDialog } from '../utils/dialog';
@@ -40,12 +39,8 @@ export const changeTopic = async ({ commit, dispatch }, topic) => {
 };
 
 export const requestData = async ({ commit, state }, data) => {
-  const codes = getCountryCodes(data.countries);
-  const date = joinDates(data);
-  const indicators = data.indicators.id;
-  const url = `http://localhost:3000/countries/${codes}/indicators/${indicators}?date=${date}&format=json`;
-  const response = await fetchJSON(url);
-  console.log(url, response);
+  const result = await callDataAPI(data);
+  console.log(result);
 };
 
 export const addCountry = ({ commit }, country) =>
