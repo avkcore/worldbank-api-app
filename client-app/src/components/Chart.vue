@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <bar-chart
-      v-if="isDataReceived"
-      :chart-data="receivedData.data"
-      :chart-opts="receivedData.options"></bar-chart>
+  <div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+      <bar-chart
+        v-if="isDataReceived"
+        :chart-data="receivedData.data"
+        :chart-opts="receivedData.options">
+      </bar-chart>
+    </div>
   </div>
 </template>
 
@@ -23,3 +26,7 @@
     },
   };
 </script>
+
+<style scoped>
+
+</style>
