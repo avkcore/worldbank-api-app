@@ -1,6 +1,9 @@
 <template>
   <div>
-    <bar-chart v-if="isDataReceived" :chart-params="receivedData"></bar-chart>
+    <bar-chart
+      v-if="isDataReceived"
+      :chart-data="receivedData.data"
+      :chart-opts="receivedData.options"></bar-chart>
   </div>
 </template>
 

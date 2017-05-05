@@ -1,24 +1,20 @@
+import { Bar, mixins } from 'vue-chartjs';
 
-import R from 'ramda';
-import { Bar } from 'vue-chartjs';
-import { getRandomColor } from '../../utils/utils';
+const { reactiveProp } = mixins;
 
 export default Bar.extend({
+  mixins: [reactiveProp],
   props: {
-    'chart-params': {
+    'chart-data': {
+      type: Object,
+      required: true,
+    },
+    'chart-opts': {
       type: Object,
       required: true,
     },
   },
   mounted() {
-    const coloredDatasets =
-      R.map(
-        item => R.assoc('backgroundColor', getRandomColor(), item),
-        this.chartParams.data.datasets,
-      );
-    const data = R.assoc('datasets', coloredDatasets, this.chartParams.data);
-    const options = this.chartParams.options;
-
-    this.renderChart(data, options);
+    this.renderChart(this.chartData, this.chartOpts);
   },
 });

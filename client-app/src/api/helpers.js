@@ -1,4 +1,5 @@
 import R from 'ramda';
+import { getRandomColor } from '../utils/utils';
 
 const getValues = data =>
   R.map(R.prop('value'))(data);
@@ -50,6 +51,7 @@ export const createDataset = (collection) => {
           const newSet = {
             label: key,
             data: getValues(collection[key]),
+            backgroundColor: getRandomColor(),
           };
           dataset = R.append(newSet, dataset);
         }
