@@ -3,10 +3,6 @@ import R from 'ramda';
 const getValues = data =>
   R.map(R.prop('value'))(data);
 
-export const fetchJSON = url =>
-  fetch(url)
-    .then(res => res.json());
-
 export const joinDates = (values) => {
   const range = [];
   if (values.yearFrom) range.push(values.yearFrom);

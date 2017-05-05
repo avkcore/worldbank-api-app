@@ -1,11 +1,12 @@
 import * as helper from './helpers';
+import { fetchJSON } from '../utils/utils';
 
 const callDataAPI = async (data) => {
   const codes = helper.getCountryCodes(data.countries);
   const date = helper.joinDates(data);
   const indicators = helper.getIndicators(data);
   const url = `http://localhost:3000/countries/${codes}/indicators/${indicators}?date=${date}&format=json`;
-  const response = await helper.fetchJSON(url);
+  const response = await fetchJSON(url);
   const responseData = helper.getLast(response);
   const groupedResponseData = helper.groupByCountry(responseData);
   const labels = helper.getYearsList(responseData);

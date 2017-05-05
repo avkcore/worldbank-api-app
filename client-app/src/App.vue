@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <search></search>
-    <bar-chart></bar-chart>
+    <chart></chart>
   </div>
 </template>
 
 <script type="text/javascript">
 import Search from './components/Search';
-import BarChart from './components/charts/BarChart';
+import Chart from './components/Chart';
 
 export default {
   name: 'app',
   components: {
     Search,
-    BarChart,
+    Chart,
   },
   data() {
     return {

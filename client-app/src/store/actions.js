@@ -1,11 +1,6 @@
 import * as types from './mutation-types';
 import callDataAPI from '../api/service';
-import {
-  fetchJSON,
-  injectValueIntoIndicatorQuery,
-  isMatched,
-  generateNumbers,
-} from '../utils/utils';
+import { fetchJSON, injectValueIntoIndicatorQuery, isMatched, generateNumbers } from '../utils/utils';
 import { savePatternDialog } from '../utils/dialog';
 
 const COUNTRIES_URL = 'https://restcountries.eu/rest/v2/all?fields=name;alpha2Code;flag';
@@ -40,7 +35,7 @@ export const changeTopic = async ({ commit, dispatch }, topic) => {
 
 export const requestData = async ({ commit, state }, data) => {
   const result = await callDataAPI(data);
-  console.log(result);
+  commit(types.SAVE_RECEIVED_DATA, result);
 };
 
 export const addCountry = ({ commit }, country) =>

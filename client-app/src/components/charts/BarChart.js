@@ -2,31 +2,13 @@
 import { Bar } from 'vue-chartjs';
 
 export default Bar.extend({
+  props: {
+    'chart-params': {
+      type: Object,
+      required: true,
+    },
+  },
   mounted() {
-    this.renderChart({
-      labels: ['2014', '2015', '2016'],
-      datasets: [
-        {
-          label: 'Algeria',
-          backgroundColor: 'blue',
-          data: [3, 7, 4],
-        },
-        {
-          label: 'Ukraine',
-          backgroundColor: 'red',
-          data: [4, null, 5],
-        },
-        {
-          label: 'USA',
-          backgroundColor: 'green',
-          data: [7, 2, 6],
-        },
-      ],
-    }, {
-      title: {
-        display: true,
-        text: 'Some indicator',
-      },
-    });
+    this.renderChart(this.chartParams.data, this.chartParams.options);
   },
 });

@@ -16,6 +16,9 @@ export const isPatternExist = state => state.searchPatterns.length > 0;
 export const isConfirmDialogOpen = state => state.isConfirmDialogOpen;
 export const isPatternSelected = state =>
   !Object.is(null, state.selectedPattern) && Object.keys(state.selectedPattern).length > 0;
+export const isDataReceived = state =>
+  !Object.is(null, state.receivedData) && Object.keys(state.receivedData).length > 0;
+export const receivedData = state => state.receivedData;
 export const filteredYearsTo = (state) => {
   if (state.yearFrom) {
     return state.toYearsList
@@ -44,7 +47,7 @@ export const isDataCoupled = (state, getters) =>
     !Object.is(null, getters.coupledData.indicators) &&
     Object.keys(getters.coupledData.indicators).length > 0 &&
     (getters.coupledData.yearFrom || getters.coupledData.yearTo),
-);
+  );
 
 export const isRequestAvailable = (state, getters) =>
   getters.isDataCoupled || getters.isPatternSelected;

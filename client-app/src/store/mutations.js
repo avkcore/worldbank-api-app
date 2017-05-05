@@ -65,4 +65,7 @@ export default {
   [types.CLOSE_SAVE_CONFIRMATION](state) {
     state.isConfirmDialogOpen = false;
   },
+  [types.SAVE_RECEIVED_DATA](state, data) {
+    state.receivedData = data;
+  },
 };
