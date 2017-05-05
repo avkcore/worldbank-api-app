@@ -1,3 +1,5 @@
+import randomColor from 'randomcolor';
+
 export const fetchJSON = url =>
   fetch(url)
     .then(res => res.json());
@@ -13,3 +15,6 @@ export const isMatched = (set, matchBy, value) => {
   const anyMatch = set.filter(item => item[matchBy] === value);
   return anyMatch.length > 0;
 };
+
+export const getRandomColor = opts =>
+  randomColor(opts);

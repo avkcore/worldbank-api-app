@@ -16,6 +16,7 @@
     "buefy": "^0.2.2",
     "chart.js": "^2.5.0",
     "ramda": "^0.23.0",
+    "randomcolor": "^0.5.2",
     "vue": "^2.2.6",
     "vue-chartjs": "^2.6.1",
     "vue-multiselect": "^2.0.0-beta.15",
