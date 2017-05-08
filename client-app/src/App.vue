@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <search></search>
-    <chart></chart>
+
   </div>
 </template>
 
